@@ -1,8 +1,60 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Lingkoop : Build for ETH SEA
 
-## Available Scripts
+## Smart Contract
+### ERC -1155 Ticketing Smart Contract
+deployed on :
+https://sepolia-blockscout.lisk.com/address/0x51EBd1A609631D2b7B9bf2b9Ba80179dE714b6F1
+
+
+code :
+https://github.com/ridhoizzulhaq/Lingkoop_Public/blob/main/ticketing%20smart%20contract/lingkoop.sol
+
+#### setDistributionContract: 
+Allows the owner to set the address of the revenue distribution contract. This address is used to distribute payments if the recipient is the distribution contract.
+
+#### createItem: 
+Allows the owner to create a new item (NFT) with a specified ID, price, recipient, and metadata URI. It stores the item in the items mapping.
+
+#### purchaseItem: 
+Allows users to purchase an NFT by sending the required Ether. It handles payment to either the recipient or the distribution contract and mints the NFT to the buyer.
+
+
+### ERC - 1155 Revenue Smart Contract
+Deployed on :
+https://sepolia-blockscout.lisk.com/address/0x73DeAB1fF060B80FbCD980F3713EEbe2Cfdb1036
+
+code :
+https://github.com/ridhoizzulhaq/Lingkoop_Public/blob/main/ticketing%20smart%20contract/RevenueToken.sol
+
+createRevenueItem:
+Creates a new revenue item with specified parameters like id, creator, creatorPortion, totalTokens, and targetInvestment.
+
+Calculates the price per token and stores the item details in the revenueItems mapping.
+
+#### mintRevenueToken:
+Allows users to mint tokens for a specific revenue item by sending the appropriate amount of Ether.
+Updates the total supply of tokens and tracks holders who have purchased tokens.
+Accumulates revenue from minting for the creator.
+
+#### distributeRevenue:
+Distributes revenue among token holders and the creator based on the creatorPortion.
+Calculates the amount each holder and the creator should receive and stores it in pendingWithdrawals.
+
+#### withdrawMintingRevenue:
+Allows creators to withdraw the revenue accumulated from the minting of their tokens.
+
+#### withdrawRoyalty:
+Enables both creators and token holders to withdraw their share of the distributed revenue.
+
+
+
+##  How Calculates the price per token work
+In Lingkoop user can purchase ERC1155 NFT-based funding tokens in any amount they wish, starting from 0.001 ETH
+##### formula #####
+Maximum Token suppy = 1000 x (investment target ) 
+
+## React DApp
 
 In the project directory, you can run:
 
@@ -39,32 +91,3 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
