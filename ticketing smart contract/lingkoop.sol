@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
-import "./RevenueToken.sol"; // Import kontrak distribusi
+import "./RevenueToken.sol"; // Import the distribution contract
 
 contract lingkoop is ERC1155, Ownable, ReentrancyGuard {
 
@@ -16,13 +16,13 @@ contract lingkoop is ERC1155, Ownable, ReentrancyGuard {
 
     mapping(uint256 => Item) public items;
     mapping(uint256 => string) private tokenURIs;
-    address public distributionContract; // distribution contract
+    address public distributionContract; // Distribution contract address
 
     event ItemCreated(uint256 id, uint256 price, address recipient, string metadataUri);
     event ItemPurchased(address indexed buyer, uint256 id, uint256 amount);
 
-    // Panggil constructor dari ERC1155 dengan URI dan Ownable dengan alamat pemilik awal
-     constructor() ERC1155("lingkoop-item") Ownable(msg.sender) {}
+    // Call the constructor from ERC1155 with URI and Ownable with the initial owner address
+    constructor() ERC1155("lingkoop-item") Ownable(msg.sender) {}
 
     function setDistributionContract(address _distributionContract) external onlyOwner {
         require(_distributionContract != address(0), "Invalid distribution contract address");
@@ -52,10 +52,10 @@ contract lingkoop is ERC1155, Ownable, ReentrancyGuard {
         address payable recipient = items[id].recipient;
 
         if (recipient == distributionContract) {
-            // Jika recipient adalah kontrak distribusi yang valid, panggil fungsi distribusi
+            // If the recipient is a valid distribution contract, call the distribution function
             RevenueToken(recipient).distributeRevenue{value: msg.value}(id);
         } else {
-            // Transfer Ether ke recipient
+            // Transfer Ether to the recipient
             recipient.transfer(msg.value);
         }
 
